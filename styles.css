@@ -554,6 +554,7 @@ body {
 .auth-section {
     display: flex;
     align-items: center;
+    margin-left: 1rem;
 }
 
 .auth-btn {
@@ -568,6 +569,7 @@ body {
     gap: 0.5rem;
     font-size: 0.9rem;
     transition: var(--transition);
+    min-height: 38px;
 }
 
 .auth-btn:hover {
@@ -653,24 +655,22 @@ body {
     background-color: rgba(0, 0, 0, 0.7);
     justify-content: center;
     align-items: center;
-    z-index: 1000;
-    animation: fadeIn 0.3s ease;
+    z-index: 1100;
 }
 
 .auth-modal .modal-content {
     background-color: var(--card-bg);
-    padding: 2.5rem;
+    padding: 2rem;
     border-radius: 15px;
     width: 90%;
-    max-width: 500px;
+    max-width: 400px;
     position: relative;
-    animation: slideUp 0.3s ease;
 }
 
 .auth-modal h2 {
     color: var(--text-color);
-    margin-bottom: 2rem;
-    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
     text-align: center;
 }
 
@@ -702,14 +702,6 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     font-size: 1rem;
-    transition: var(--transition);
-}
-
-.auth-form input:focus,
-.auth-form select:focus {
-    outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 2px rgba(58, 175, 169, 0.2);
 }
 
 .auth-form .submit-btn {
@@ -728,23 +720,6 @@ body {
 
 .auth-form .submit-btn:hover {
     background-color: var(--secondary-color);
-    transform: translateY(-2px);
-}
-
-.switch-form {
-    text-align: center;
-    margin-top: 1.5rem;
-    color: var(--text-color);
-}
-
-.switch-form a {
-    color: var(--accent-color);
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.switch-form a:hover {
-    text-decoration: underline;
 }
 
 .auth-modal .close-btn {
@@ -756,11 +731,20 @@ body {
     color: var(--text-color);
     font-size: 1.5rem;
     cursor: pointer;
-    transition: var(--transition);
+    padding: 0.5rem;
 }
 
-.auth-modal .close-btn:hover {
-    color: var(--accent-color);
+@media (max-width: 768px) {
+    .auth-modal .modal-content {
+        width: 95%;
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    .auth-form input,
+    .auth-form select {
+        font-size: 16px; /* Prevents zoom on mobile */
+    }
 }
 
 /* Mobile Menu Button */
