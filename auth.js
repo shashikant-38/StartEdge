@@ -7,15 +7,21 @@ function toggleAuthModal(form) {
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
     
+    if (modal.style.display === 'flex') {
+        closeAuthModal();
+        return;
+    }
+    
     modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
     
+    loginForm.classList.remove('active');
+    registerForm.classList.remove('active');
+    
     if (form === 'login') {
-        loginForm.style.display = 'block';
-        registerForm.style.display = 'none';
+        loginForm.classList.add('active');
     } else {
-        loginForm.style.display = 'none';
-        registerForm.style.display = 'block';
+        registerForm.classList.add('active');
     }
 }
 
@@ -113,7 +119,14 @@ function handleLogout() {
     showNotification('Logged out successfully', 'success');
 }
 
+// Show notification
 function showNotification(message, type) {
+    // Remove any existing notifications
+    const existingNotification = document.querySelector('.notification');
+    if (existingNotification) {
+        existingNotification.remove();
+    }
+    
     const notification = document.createElement('div');
     notification.className = `notification ${type}`;
     notification.textContent = message;
@@ -125,20 +138,34 @@ function showNotification(message, type) {
     }, 3000);
 }
 
-// Initialize profile section
-function initializeProfile() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    const profileSection = document.getElementById('profileSection');
-    const userProfile = document.getElementById('userProfile');
-    
-    if (currentUser) {
-        profileSection.style.display = 'none'; // Initially hidden
-        userProfile.style.display = 'flex';
-        updateProfileDisplay(currentUser);
-    }
-}
-
-// Initialize auth state when page loads
+// Initialize auth state and event listeners when page loads
 document.addEventListener('DOMContentLoaded', () => {
     updateAuthUI();
+    
+    // Close modal when clicking outside
+    const modal = document.getElementById('authModal');
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeAuthModal();
+        }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.style.display === 'flex') {
+            closeAuthModal();
+        }
+    });
+
+    // Initialize forms
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
+    }
+    
+    if (registerForm) {
+        registerForm.addEventListener('submit', handleRegister);
+    }
 }); 
